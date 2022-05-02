@@ -1,0 +1,38 @@
+schema: '2.0'
+stages:
+  download:
+    cmd: Rscript R/download.R
+    deps:
+    - path: R/download.R
+      md5: c5f3cd09e7e483c127469ee89c73074f
+      size: 1273
+    outs:
+    - path: cache/uniprot_sprot.xml.gz
+      md5: 7502d86da5e1e3040e993f85bbd25a90
+      size: 803773236
+  process:
+    cmd: bash/convert cache/uniprot_sprot.xml.gz xsl/uniprot.xsl cache/uniprot_sprot.csv
+    deps:
+    - path: bash/convert
+      md5: 1e186b5badf1381cd1a5bc7433a80514
+      size: 691
+    - path: cache/uniprot_sprot.xml.gz
+      md5: 7502d86da5e1e3040e993f85bbd25a90
+      size: 803773236
+    - path: xsl/uniprot.xsl
+      md5: 20fc6c1956851d14d3baae24840cd5f1
+      size: 3601
+    outs:
+    - path: cache/uniprot_sprot.csv
+      md5: 45ba88514152c0f383b1a7e4542caf10
+      size: 306116515
+  csv_to_parquet:
+    cmd: Rscript R/csv_to_parquet.R
+    deps:
+    - path: cache/uniprot_sprot.csv
+      md5: 45ba88514152c0f383b1a7e4542caf10
+      size: 306116515
+    outs:
+    - path: data/uniprot_sprot.parquet
+      md5: 38e2f7dc7c283ee56606319d5239ec0d
+      size: 157012891

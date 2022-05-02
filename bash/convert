@@ -1,0 +1,26 @@
+#!/bin/bash
+# ex
+input_file=$1
+xsl_file=$2
+output_file=$3
+# -n 90 one entry
+# -n 1069 11 entries
+# -n 10124 67 entries
+if [ -f "$output_file" ]; then
+    :
+    # echo "$output_file exists."
+else 
+    # echo "preprocess $output_file"
+    # head -n 10124 uniprot_sprot.xml > $output_file
+    # cp uniprot_sprot.xml $input_file
+    #chmod 600 $output_file
+    gunzip -c $input_file |
+    sed '1,4d' |
+    sed '1s/^/<uniprot>\n/' |
+    sed 's/xmlns.*=".*"//g' |
+    xsltproc -o $output_file $xsl_file -
+    #echo "</uniprot>" >> $output_file
+fi
+
+#xmlstarlet  sel -T -t -m /uniprot/entry -v "concat(accession,',',name,',')" -n $output_file
+#xsltproc -o uniprot_sprot.csv uniprot.xsl $output_file
