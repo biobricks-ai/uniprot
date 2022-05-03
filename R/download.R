@@ -40,6 +40,7 @@ map(~ file.path(ftp_path, .x)) |> unlist() |>
 unlist()
 
 ftp_files |>
-# skip trembl
-#purrr::discard( ~ grepl("*trembl*",.x)) |>
-walk(~ download_file(dest_dir = cache_dir, url = .x))
+walk(~ {
+    filename <- basename(.x)
+    download.file(destfile=(file.path(cache_dir, filename)), url = .x)
+})
