@@ -1,4 +1,3 @@
-library(kiln)
 library(fs)
 library(curl)
 library(stringr)
@@ -36,8 +35,6 @@ map(function(x) {
     f
 }) |> map(~ .x$filename) |>
 # We are only processing the uniprot_sprot.xml.gz file
-# this is kept for future reference
-# purrr::keep(~ grepl("*xml*",.x) | grepl("*fasta*",.x)) |>
 purrr::keep(~.x == "uniprot_sprot.xml.gz") |>
 map(~ file.path(ftp_path, .x)) |> unlist() |>
 unlist()
