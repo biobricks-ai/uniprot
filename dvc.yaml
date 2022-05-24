@@ -1,8 +1,6 @@
 stages:
   download:
-    cmd: Rscript R/download.R
-    deps:
-      - R/download.R
+    cmd: wget ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.xml.gz -P download/
     outs:
       - download/uniprot_sprot.xml.gz
   process:
