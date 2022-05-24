@@ -4,8 +4,7 @@ stages:
     deps:
       - R/download.R
     outs:
-      - download/uniprot_sprot.xml.gz:
-          cache: false
+      - download/uniprot_sprot.xml.gz
   process:
     cmd: bash/convert download/uniprot_sprot.xml.gz xsl/uniprot.xsl data/uniprot_sprot.csv
     deps:
@@ -13,8 +12,7 @@ stages:
       - xsl/uniprot.xsl
       - download/uniprot_sprot.xml.gz
     outs:
-      - data/uniprot_sprot.csv:
-          cache: false
+      - data/uniprot_sprot.csv
   csv_to_parquet:
     cmd: Rscript R/csv_to_parquet.R
     deps:
