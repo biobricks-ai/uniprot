@@ -1,11 +1,13 @@
 ---
-title: sider
-namespace: sider
+title: uniprot
+namespace: uniprot
 description: marketed medicines and recorded adverse drug reactions.
 dependencies: 
-  - name: SIDER
-    url: http://sideeffects.embl.de
+  - name: uniprot
+    url: https://www.uniprot.org
 ---
+
+<a href="https://github.com/biobricks-ai/uniprot/actions"><img src="https://github.com/biobricks-ai/uniprot/actions/workflows/bricktools-check.yaml/badge.svg?branch=master"/></a>
 
 This directory contains data that was obtained from [UniProt](https://www.uniprot.org)
 
