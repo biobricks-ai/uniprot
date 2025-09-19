@@ -4,16 +4,16 @@ stages:
     outs:
       - download/uniprot_sprot.xml.gz
   process:
-    cmd: bash/convert download/uniprot_sprot.xml.gz xsl/uniprot.xsl data/uniprot_sprot.csv
+    cmd: bash/convert download/uniprot_sprot.xml.gz xsl/uniprot.xsl brick/uniprot_sprot.csv
     deps:
       - bash/convert
       - xsl/uniprot.xsl
       - download/uniprot_sprot.xml.gz
     outs:
-      - data/uniprot_sprot.csv
+      - brick/uniprot_sprot.csv
   csv_to_parquet:
     cmd: Rscript R/csv_to_parquet.R
     deps:
-      - data/uniprot_sprot.csv
+      - brick/uniprot_sprot.csv
     outs:
-      - data/uniprot_sprot.parquet
+      - brick/uniprot_sprot.parquet
