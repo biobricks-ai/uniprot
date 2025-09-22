@@ -1,4 +1,8 @@
 library(arrow)
 library(vroom)
-arrow::write_parquet(vroom::vroom("brick/uniprot_sprot.csv"),
-    file.path("brick/uniprot_sprot.parquet"))
+
+if (!dir.exists("brick")) {
+  dir.create("brick", recursive = TRUE)
+}
+arrow::write_parquet(vroom::vroom("download/uniprot_sprot.csv", delim="|"),
+    file.path("brick", "uniprot_sprot.parquet"))
