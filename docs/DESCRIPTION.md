@@ -1,6 +1,6 @@
 he Reviewed (Swiss-Prot) XML has been flattened into a parquet file. 
 
-## data/uniprot_sprot.parquet
+## brick/uniprot_sprot.parquet
 
 The fields are as follows
 
