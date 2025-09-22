@@ -1,35 +1,44 @@
 schema: '2.0'
 stages:
   download:
-    cmd: wget ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.xml.gz
+    cmd: wget 
+      ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.xml.gz
       -P download/
     outs:
     - path: download/uniprot_sprot.xml.gz
-      md5: 7502d86da5e1e3040e993f85bbd25a90
-      size: 803773236
+      hash: md5
+      md5: 60295aa4e33be821cadacaff348c6211
+      size: 925893980
   csv_to_parquet:
     cmd: Rscript R/csv_to_parquet.R
     deps:
-    - path: data/uniprot_sprot.csv
-      md5: 45ba88514152c0f383b1a7e4542caf10
-      size: 306116515
+    - path: download/uniprot_sprot.csv
+      hash: md5
+      md5: 46afa7125ea177474566e82e25d09834
+      size: 312016085
     outs:
-    - path: data/uniprot_sprot.parquet
-      md5: 38e2f7dc7c283ee56606319d5239ec0d
-      size: 157012891
+    - path: brick/uniprot_sprot.parquet
+      hash: md5
+      md5: ea074411c657430235be6caf5972ec5e
+      size: 158164019
   process:
-    cmd: bash/convert download/uniprot_sprot.xml.gz xsl/uniprot.xsl data/uniprot_sprot.csv
+    cmd: bash/convert download/uniprot_sprot.xml.gz xsl/uniprot.xsl 
+      download/uniprot_sprot.csv
     deps:
     - path: bash/convert
       md5: 1e186b5badf1381cd1a5bc7433a80514
       size: 691
+      isexec: true
     - path: download/uniprot_sprot.xml.gz
-      md5: 7502d86da5e1e3040e993f85bbd25a90
-      size: 803773236
+      hash: md5
+      md5: 60295aa4e33be821cadacaff348c6211
+      size: 925893980
     - path: xsl/uniprot.xsl
-      md5: 20fc6c1956851d14d3baae24840cd5f1
-      size: 3601
+      hash: md5
+      md5: db4c3eb14e77ff168e9653d5a6048566
+      size: 3261
     outs:
-    - path: data/uniprot_sprot.csv
-      md5: 45ba88514152c0f383b1a7e4542caf10
-      size: 306116515
+    - path: download/uniprot_sprot.csv
+      hash: md5
+      md5: 46afa7125ea177474566e82e25d09834
+      size: 312016085
